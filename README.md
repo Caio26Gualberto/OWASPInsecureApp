@@ -6,6 +6,10 @@ Este projeto foi desenvolvido com o propósito **educacional** para demonstrar a
 
 ---
 
+📄 Este README está disponível em outros idiomas:
+- 🇺🇸 [English](README.en.md)
+- 🇧🇷 Português (você está aqui)
+
 ## ✅ Vulnerabilidades Abordadas
 
 1. **SQL Injection**  
