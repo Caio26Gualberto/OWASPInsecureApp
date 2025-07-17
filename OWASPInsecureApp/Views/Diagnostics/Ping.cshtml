@@ -1,0 +1,61 @@
+﻿@{
+    ViewData["Title"] = "Ping Diagnostic";
+}
+
+<h2>Ping a Host</h2>
+
+<form method="post">
+    <label for="ipAddress">Enter IP Address or Hostname:</label>
+    <input type="text" name="ipAddress" class="form-control" />
+    <button type="submit" class="btn btn-primary mt-2">Ping</button>
+</form>
+<p>Input example: 8.8.8.8</p>
+
+@if (ViewBag.Result != null)
+{
+    <h4 class="mt-4">Result:</h4>
+    <pre>@ViewBag.Result</pre>
+}
+
+<br>
+<h2>Command Injection</h2>
+
+<p><strong>Command Injection</strong> is a critical security vulnerability that occurs when an application allows user input to be passed directly to a system shell or command-line interpreter without proper validation or sanitization.</p>
+
+<h3>How it works</h3>
+<p>The attacker manipulates input fields to execute arbitrary system commands. This can lead to full system compromise, data theft, or service disruption.</p>
+
+<h3>Real-World Scenarios</h3>
+<ul>
+    <li>
+        <strong>Network tools:</strong> Applications that offer functionality like <code>ping</code>, <code>traceroute</code>, or <code>nslookup</code> often execute shell commands behind the scenes. If user input (e.g., IP address) is not validated, an attacker could inject additional commands.
+    </li>
+    <li>
+        <strong>File conversion or backup scripts:</strong> Systems that call external tools (e.g., <code>tar</code>, <code>zip</code>, <code>ffmpeg</code>) via command line can be vulnerable if they include untrusted user input.
+    </li>
+    <li>
+        <strong>Web hosting panels:</strong> Panels that manage system configurations or services (e.g., restarting servers or creating users) often run shell commands and are common targets for injection if access control or sanitization fails.
+    </li>
+</ul>
+
+<h3>Example</h3>
+<p>Consider an application that lets users ping an IP address. If the input is not validated, an attacker might enter:</p>
+<pre>127.0.0.1 &amp;&amp; del C:\Windows\System32</pre>
+<p>This would execute the ping, then attempt to delete critical system files.</p>
+
+<h3>Impact</h3>
+<ul>
+    <li>Full server takeover</li>
+    <li>Data loss or corruption</li>
+    <li>Unauthorized access to internal networks</li>
+    <li>Persistent malware installation</li>
+</ul>
+
+<h3>How to Prevent</h3>
+<ul>
+    <li>Never pass raw user input to system commands</li>
+    <li>Use parameterized APIs or libraries instead of shell commands</li>
+    <li>Validate and sanitize all inputs strictly</li>
+    <li>Run applications with the least required privileges</li>
+</ul>
+

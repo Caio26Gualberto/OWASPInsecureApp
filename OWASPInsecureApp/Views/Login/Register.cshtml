@@ -1,0 +1,61 @@
+﻿@{
+    ViewData["Title"] = "Insecure Registration";
+}
+
+<h2>Register (Insecure)</h2>
+
+<form method="post" asp-action="Register">
+    <div class="form-group">
+        <label for="username">Username:</label>
+        <input name="username" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label for="password">Password (plain text!):</label>
+        <input type="text" name="password" class="form-control" />
+    </div>
+    <button type="submit" class="btn btn-danger">Register</button>
+</form>
+<br />
+<h2>🔐 Why Storing Passwords in Plaintext Is a Critical Security Flaw</h2>
+
+<p>Storing user passwords as plaintext (unencrypted) is one of the <strong>most dangerous mistakes</strong> a developer or system administrator can make. Here's why:</p>
+
+<h3>❗ 1. If the Database Is Compromised — All Passwords Are Exposed</h3>
+<ul>
+    <li>A hacker who gains access to your database (via SQL Injection, a leaked backup, or misconfigured permissions) can <strong>read every user's password directly</strong>.</li>
+    <li>Users often reuse passwords across multiple services, meaning the attacker can now access <strong>their email, banking, and more</strong>.</li>
+</ul>
+
+<h3>📡 2. Risk of Data Interception During Transmission</h3>
+<p>If passwords are being sent over the network (e.g., during login or registration), and:</p>
+<ul>
+    <li>The application <strong>doesn’t use HTTPS</strong></li>
+    <li>Or uses <strong>weak/expired SSL/TLS configurations</strong></li>
+    <li>Or allows <strong>certificate spoofing</strong></li>
+</ul>
+<p>Then passwords can be <strong>intercepted in transit</strong> by attackers.</p>
+
+<h3>🚨 Real-World Scenarios of Interception (Man-in-the-Middle Attacks)</h3>
+
+<h4>📶 Public Wi-Fi / Rogue Access Points</h4>
+<ul>
+    <li>Attacker sets up a fake Wi-Fi network (like <em>"Free Café Wi-Fi"</em>).</li>
+    <li>Victims connect unknowingly.</li>
+    <li>All traffic can be sniffed using tools like <strong>Wireshark</strong>.</li>
+</ul>
+
+<h4>🕵️ ARP Spoofing / DNS Spoofing</h4>
+<ul>
+    <li>Attacker manipulates your local network routing.</li>
+    <li>Traffic is silently intercepted or redirected to malicious servers.</li>
+</ul>
+
+<h4>🔁 SSL Stripping</h4>
+<ul>
+    <li>Victim connects via HTTP.</li>
+    <li>Attacker intercepts and prevents the switch to HTTPS.</li>
+    <li>Victim never sees the lock icon 🔒 and data is sent unencrypted.</li>
+</ul>
+
+<p><strong>Always hash and salt passwords</strong> using secure algorithms like <code>bcrypt</code>, <code>Argon2</code>, or <code>PBKDF2</code>, and ensure all communication happens over HTTPS.</p>
+

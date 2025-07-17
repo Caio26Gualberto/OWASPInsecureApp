@@ -1,0 +1,73 @@
+﻿@model User
+@{
+    ViewData["Title"] = "Profiles";
+}
+
+<h2>Perfil do Usuário</h2>
+
+<p><strong>ID:</strong> @Model.Id</p>
+<p><strong>Nome:</strong> @Model.Username</p>
+
+@if (ViewBag.IsIdor)
+{
+    <div style="color: red; font-weight: bold;">
+        ⚠️ This profile does not belong to the logged in user! IDOR detected!
+    </div>
+}
+else
+{
+    <div style="color: green; font-weight: bold;">
+        ✅ You are viewing your own profile.
+    </div>
+}
+<br />
+<h2>What is Insecure Direct Object Reference (IDOR)?</h2>
+<p>
+    <strong>Insecure Direct Object Reference (IDOR)</strong> is a type of access control vulnerability where an attacker can access or manipulate objects
+    (such as user profiles, documents, or transactions) by modifying a parameter value (like an ID) in the URL or request, without proper authorization checks on the server.
+</p>
+
+<h3>How does IDOR work?</h3>
+<p>
+    Applications often use IDs to fetch specific resources. If the server does not validate whether the currently authenticated user
+    is allowed to access the requested resource, attackers can simply change the ID to access other users’ data.
+</p>
+
+<h3>Example</h3>
+<p>
+    Imagine a user accesses their profile with the following URL:
+</p>
+
+<pre><code>
+https://example.com/profile/details?id=123
+</code></pre>
+
+<p>
+    An attacker can change the ID to:
+</p>
+
+<pre><code>
+https://example.com/profile/details?id=124
+</code></pre>
+
+<p>
+    If there is no proper authorization check, the attacker can now view or edit another user's data.
+</p>
+
+<h3>Potential impacts</h3>
+<ul>
+    <li>Access to other users’ sensitive information (PII).</li>
+    <li>Unauthorized modification or deletion of data.</li>
+    <li>Privilege escalation in some cases.</li>
+</ul>
+
+<h3>How to prevent IDOR?</h3>
+<ul>
+    <li>Always verify that the currently authenticated user has access rights to the requested object.</li>
+    <li>Never rely solely on client-side data (like hidden fields or URL parameters) for access control.</li>
+    <li>Use indirect references (like UUIDs or tokens) instead of direct database IDs when possible.</li>
+    <li>Implement centralized authorization checks on the server side.</li>
+</ul>
+
+<p><strong>Note:</strong> IDOR vulnerabilities are common in APIs and poorly secured web applications.</p>
+

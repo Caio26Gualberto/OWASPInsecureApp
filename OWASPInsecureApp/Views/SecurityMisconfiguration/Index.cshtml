@@ -1,0 +1,36 @@
+﻿<h2>Try to access https://{localhost}/appsettings_backup.json</h2>
+<br />
+<div>
+    <h2>Security Misconfiguration</h2>
+    <p>
+        Security Misconfiguration occurs when an application, server, or framework is improperly configured,
+        leaving it vulnerable to attack. It’s one of the most common and dangerous vulnerabilities in web applications.
+    </p>
+
+    <h3>Examples of Security Misconfiguration:</h3>
+    <ul>
+        <li>Detailed error messages exposed to users (stack traces, database errors).</li>
+        <li>Unnecessary features enabled (e.g., debug mode, sample apps, admin tools).</li>
+        <li>Default accounts or credentials still active.</li>
+        <li>Sensitive files publicly accessible (e.g., <code>appsettings.json</code>, backups, logs).</li>
+        <li>Missing or misconfigured security headers (like CSP, HSTS, X-Frame-Options).</li>
+    </ul>
+
+    <h3>Risks:</h3>
+    <ul>
+        <li>Information disclosure (like database schemas, file paths, or connection strings).</li>
+        <li>Privilege escalation through default admin panels.</li>
+        <li>Facilitation of other attacks like SQL Injection, XSS, or IDOR.</li>
+    </ul>
+
+    <h3>How to Prevent It:</h3>
+    <ul>
+        <li>Disable detailed error pages in production.</li>
+        <li>Remove unused features, frameworks, and services.</li>
+        <li>Restrict access to sensitive files and directories.</li>
+        <li>Apply secure configurations to all environments.</li>
+        <li>Use automated tools to scan for misconfigurations.</li>
+    </ul>
+
+    <p><strong>Always review and harden your application and server settings before going live.</strong></p>
+</div>

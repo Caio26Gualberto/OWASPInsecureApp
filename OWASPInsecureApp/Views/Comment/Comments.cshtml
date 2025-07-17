@@ -1,0 +1,7 @@
+﻿@model List<Comment>
+
+<h2>Comentários</h2>
+@foreach(var comment in Model)
+{
+    <p>@Html.Raw(comment.Text)</p>  <!-- Aqui está vulnerável -->
+}

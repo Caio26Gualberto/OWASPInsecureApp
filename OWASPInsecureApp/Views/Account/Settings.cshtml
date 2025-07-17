@@ -1,0 +1,65 @@
+﻿@{
+    ViewData["Title"] = "Configurações de Conta";
+}
+
+<h2>Configurações</h2>
+
+<p><strong>Email atual:</strong> @ViewBag.Email</p>
+
+<form method="post" action="/Account/ChangeEmail">
+    @Html.AntiForgeryToken() <!-- This method prevents access from other websites (Counter: CSRF) -->
+    <label>Novo Email:</label>
+    <input type="email" name="email" />
+    <button type="submit">Salvar</button>
+</form>
+
+<h2>What is Cross-Site Request Forgery (CSRF)?</h2>
+<p>
+    <strong>CSRF (Cross-Site Request Forgery)</strong> is a type of attack where a malicious website tricks a user's browser into sending unauthorized requests to a different site where the user is authenticated.
+</p>
+
+<h3>How does CSRF work?</h3>
+<p>
+    When a user is logged into a site (e.g., a banking application), their browser automatically includes session cookies in requests to that site.
+    If the user visits a malicious website while logged in, that website can craft a hidden request (e.g., using a form or image tag)
+    to perform actions on behalf of the user — such as changing their email or making a transfer.
+</p>
+
+<h3>Example</h3>
+<p>The following form on a malicious site could silently change the user's email:</p>
+
+<pre><code>
+&lt;form action="https://trustedsite.com/Account/ChangeEmail" method="POST"&gt;
+    &lt;input type="hidden" name="email" value="attacker@example.com" /&gt;
+    &lt;input type="submit" value="Click me!" /&gt;
+&lt;/form&gt;
+</code></pre>
+
+<p>
+    Paste the following URL that is available in this project and try to post (This will simulate a post coming from another domain)
+    <br />
+    <strong>https://{localhost}/csrf-attack.html</strong>
+</p>
+
+<p>
+    If the user is logged into <code>trustedsite.com</code>, their browser will automatically include authentication cookies,
+    and the email will be changed without their consent.
+</p>
+
+<h3>Potential impacts</h3>
+<ul>
+    <li>Change user settings (email, password).</li>
+    <li>Make unauthorized purchases or transfers.</li>
+    <li>Delete or modify data.</li>
+</ul>
+
+<h3>How to prevent CSRF?</h3>
+<ul>
+    <li>Use anti-CSRF tokens in all forms and validate them on the server.</li>
+    <li>Reject requests that do not come from expected origins or referrers.</li>
+    <li>Use the <code>SameSite</code> attribute on cookies to restrict cross-origin usage.</li>
+    <li>Require re-authentication for sensitive actions.</li>
+</ul>
+
+<p><strong>Note:</strong> Unlike XSS, CSRF exploits the trust that a site has in the user's browser.</p>
+

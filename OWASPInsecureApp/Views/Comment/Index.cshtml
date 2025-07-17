@@ -1,0 +1,53 @@
+﻿@{
+    ViewData["Title"] = "Add Comment";
+}
+
+<h2>Add Comment</h2>
+
+<form asp-action="CreateComment" method="post">
+    <textarea name="text" rows="4" cols="50"></textarea><br/>
+    <button type="submit">Submit</button>
+</form>
+
+<p><a asp-action="Comments">View Comments</a></p>
+
+<br>
+<h2>What is Cross-Site Scripting (XSS)?</h2>
+<p>
+    <strong>XSS (Cross-Site Scripting)</strong> is a type of security vulnerability that allows attackers to inject malicious scripts (usually JavaScript) into web pages viewed by other users.
+</p>
+
+<h3>What can XSS do?</h3>
+<ul>
+    <li>Steal user session cookies and impersonate users.</li>
+    <li>Redirect users to malicious websites.</li>
+    <li>Deface websites or inject unwanted content.</li>
+    <li>Perform actions on behalf of users without their consent.</li>
+</ul>
+
+<h3>Types of XSS</h3>
+<ul>
+    <li><strong>Stored XSS:</strong> Malicious script is saved on the server (e.g., in a comment or post) and runs when viewed by others.</li>
+    <li><strong>Reflected XSS:</strong> Script is included in a URL or form input and executed immediately in the response.</li>
+    <li><strong>DOM-based XSS:</strong> Script is injected via client-side JavaScript manipulation of the DOM.</li>
+</ul>
+
+<h3>Example</h3>
+<p>If a comment form accepts raw HTML without sanitization, a user could submit:</p>
+<pre><code>
+&lt;script&gt;alert('XSS Attack!')&lt;/script&gt;
+</code></pre>
+<p>
+    When another user visits the page, the browser executes the script and shows the alert.
+</p>
+
+<h3>How to prevent XSS?</h3>
+<ul>
+    <li>Always escape user input before displaying it in HTML, JavaScript, or URLs.</li>
+    <li>Use frameworks or libraries that automatically handle output encoding (e.g., Razor in ASP.NET Core).</li>
+    <li>Sanitize HTML input if rich text is required (use libraries like DOMPurify).</li>
+    <li>Set proper <code>Content-Security-Policy (CSP)</code> headers.</li>
+</ul>
+
+<p><strong>Note:</strong> XSS is dangerous because it executes in the context of the victim's browser, not the attacker's.</p>
+

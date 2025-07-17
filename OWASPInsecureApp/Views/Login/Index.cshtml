@@ -1,0 +1,62 @@
+﻿@{
+    ViewData["Title"] = "Login";
+}
+
+<h2>Login</h2>
+
+<form method="post">
+    <div>
+        <label>Usuário:</label>
+        <input type="text" name="username" />
+    </div>
+    <div>
+        <label>Senha:</label>
+        <input type="password" name="password" />
+    </div>
+<br>
+    <button type="submit">Entrar</button>
+</form>
+@if (ViewBag.Message != null)
+{
+    <p>@ViewBag.Message</p>
+}
+<br>
+<br>
+<h2>What is SQL Injection?</h2>
+<p>
+    <strong>SQL Injection</strong> is a <em>security vulnerability</em> that occurs when an attacker inserts malicious SQL code into input fields (such as login forms, search boxes, or URLs), aiming to interfere with the normal execution of SQL queries on the server.
+</p>
+
+<h3>What can this vulnerability do?</h3>
+<ul>
+    <li>Allow login without valid credentials.</li>
+    <li>Read sensitive data from the database (like passwords and emails).</li>
+    <li>Modify or delete data from the database.</li>
+    <li>In some cases, gain full control over the server.</li>
+</ul>
+
+<h3>Practical Example</h3>
+<p>Consider this insecure code:</p>
+<pre><code>
+string query = $"SELECT * FROM Users WHERE Username = '{username}' AND Password = '{password}'";
+</code></pre>
+<p>If an attacker enters the following in the login field:</p>
+<ul>
+    <li><strong>Username:</strong> ' OR '1'='1 --</li>
+    <li><strong>Password:</strong> anything</li>
+</ul>
+<p>The resulting SQL will be:</p>
+<pre><code>
+SELECT * FROM Users WHERE Username = '' OR '1'='1' -- AND Password = 'anything'
+</code></pre>
+<p>Since <code>'1'='1'</code> is always true, the attacker may gain access without a valid login.</p>
+
+<h3>How to prevent SQL Injection?</h3>
+<ul>
+    <li>Use parameterized queries.</li>
+    <li>Avoid directly concatenating strings into SQL commands.</li>
+    <li>Validate and sanitize all user inputs.</li>
+    <li>Use modern ORMs like Entity Framework, which protect against SQLi by default.</li>
+</ul>
+
+<p><strong>Important:</strong> Always test vulnerabilities in controlled environments and never on real systems without authorization.</p>

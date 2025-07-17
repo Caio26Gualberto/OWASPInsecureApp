@@ -1,0 +1,45 @@
+﻿@{
+    ViewData["Title"] = "Unvalidated Redirect Demo";
+}
+<h2>Unvalidated Redirect</h2>
+
+<p>Click below to be redirected to a given URL (unsafe):</p>
+
+<form method="get" asp-controller="UnsafeRedirect" asp-action="RedirectTo">
+    <label for="returnUrl">Return URL:</label>
+    <input type="text" id="returnUrl" name="returnUrl" value="https://evil.com" style="width: 300px;" />
+    <br /><br />
+    <button type="submit">Redirect</button>
+</form>
+<br />
+<div class="container mt-4">
+    <h2>Unvalidated Redirects and Forwards</h2>
+    <p>
+        Unvalidated Redirects and Forwards occur when a web application redirects or forwards users to other pages based on untrusted input,
+        without proper validation.
+    </p>
+
+    <h4>Why is it dangerous?</h4>
+    <ul>
+        <li>Attackers can use your domain to trick users into visiting malicious sites.</li>
+        <li>This can be used in phishing attacks, leading users to fake login pages that steal credentials.</li>
+        <li>It abuses the trust users have in your website.</li>
+    </ul>
+
+    <h4>Example scenario:</h4>
+    <p>
+        A URL like:
+        <code>https://yourwebsite.com/redirect?returnUrl=https://evil.com/fake-login</code><br>
+        redirects users to an attacker-controlled website after briefly showing your domain.
+    </p>
+    <p>
+        This tricks users into believing the redirection is safe, potentially exposing sensitive information.
+    </p>
+
+    <h4>How to prevent it:</h4>
+    <ul>
+        <li>Only allow redirects to internal, relative paths (e.g., <code>/dashboard</code>).</li>
+        <li>If external URLs are needed, validate them against a whitelist of trusted domains.</li>
+        <li>Display a warning page before redirecting to an external site, asking the user to confirm.</li>
+    </ul>
+</div>
